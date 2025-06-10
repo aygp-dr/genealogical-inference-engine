@@ -1,0 +1,184 @@
+#+TITLE: Genealogical Inference Engine
+#+AUTHOR: Aidan Pace
+#+EMAIL: apace@defrecord.com
+#+DATE: 2025-06-09
+
+* Overview
+
+A systematic framework for inferring family relationships from fragmentary evidence, temporal correlation analysis, and probabilistic genealogical modeling.
+
+** Project Status: Conceptual
+This repository was created as the final punchline to a conversation about systematically turning every personal discovery into a technical infrastructure project. However, knowing the author, it will probably become a real thing eventually.
+
+* Motivation
+
+During investigation of [[https://github.com/aygp-dr/photographic-archaeology][photographic-archaeology]], it became clear that genealogical relationship inference requires its own systematic approach beyond temporal photo analysis.
+
+** Core Problems
+- Fragmentary family evidence requires probabilistic modeling
+- Multiple evidence types need weighted correlation
+- Relationship inference needs Bayesian updating
+- Family tree reconstruction from partial data
+
+* Theoretical Framework
+
+** Evidence Types
+- Photographic: Temporal analysis, relationship inference from poses/context
+- Documentary: Birth certificates, marriage records, census data
+- Biological: Age estimation, family resemblance analysis
+- Cultural: Naming patterns, geographic clustering, cultural markers
+- Technological: Analysis of artifacts, clothing, possessions
+
+** Inference Pipeline
+1. **Evidence Collection**: Multi-modal data gathering
+2. **Temporal Correlation**: Establish chronological constraints
+3. **Relationship Modeling**: Probabilistic family structure inference
+4. **Bayesian Updating**: Incorporate new evidence iteratively
+5. **Confidence Assessment**: Quantify relationship certainty
+
+* Implementation Plan
+
+** Phase 1: Evidence Framework
+#+BEGIN_SRC python
+class Evidence:
+    evidence_type: str
+    relationship_hints: List[str] 
+    temporal_constraints: DateRange
+    confidence: float
+    source: str
+
+class RelationshipHypothesis:
+    subject_a: Person
+    subject_b: Person  
+    relationship_type: str  # parent, grandparent, sibling, etc.
+    probability: float
+    supporting_evidence: List[Evidence]
+#+END_SRC
+
+** Phase 2: Inference Engine
+- Constraint satisfaction for temporal consistency
+- Probabilistic graphical models for family structures
+- Bayesian networks for evidence integration
+- Monte Carlo sampling for relationship exploration
+
+** Phase 3: Integration
+- Interface with photographic-archaeology results
+- Import from genealogy databases (FamilySearch, Ancestry)
+- Export to standard GEDCOM format
+- Visualization of inferred family networks
+
+* Usage Examples
+
+** Basic Relationship Inference
+#+BEGIN_SRC python
+from genealogical_inference import InferenceEngine, Evidence
+
+engine = InferenceEngine()
+
+# Add photographic evidence
+photo_evidence = Evidence(
+    evidence_type="photographic",
+    relationship_hints=["elderly_couple", "comfortable_posing"],
+    temporal_constraints=DateRange(1985, 1995),
+    confidence=0.8,
+    source="mystery-family-roll-1"
+)
+
+# Add temporal evidence  
+birth_evidence = Evidence(
+    evidence_type="temporal",
+    relationship_hints=["subject_born_2000"],
+    temporal_constraints=DateRange(2000, 2000),
+    confidence=1.0,
+    source="known_birth_date"
+)
+
+engine.add_evidence([photo_evidence, birth_evidence])
+relationships = engine.infer_relationships()
+
+# Result: [(Person("subject"), Person("elderly_couple"), "great-grandparent", 0.73)]
+#+END_SRC
+
+** Family Tree Reconstruction
+#+BEGIN_SRC python
+family_tree = engine.reconstruct_family_tree(
+    root_person="subject_born_2000",
+    evidence_threshold=0.5
+)
+
+family_tree.visualize("results/inferred_family_structure.svg")
+family_tree.export_gedcom("results/inferred_family.ged")
+#+END_SRC
+
+* Methodological Notes
+
+** Confidence Calibration
+- High (0.8-1.0): Multiple corroborating evidence types
+- Medium-High (0.6-0.8): Strong single evidence source
+- Medium (0.4-0.6): Circumstantial evidence patterns
+- Low (0.2-0.4): Speculative inference
+
+** Ethical Considerations
+- Privacy preservation for living individuals
+- Consent frameworks for family data usage
+- Accuracy disclaimers for genealogical research
+- Cultural sensitivity in relationship modeling
+
+* Related Projects
+
+- [[https://github.com/aygp-dr/photographic-archaeology][photographic-archaeology]]: Temporal photo analysis framework
+- [[https://github.com/aygp-dr/values-compass][values-compass]]: Personal values clarification system
+
+Both demonstrate the systematic approach to turning personal discoveries into reproducible technical frameworks.
+
+* Future Extensions
+
+** Advanced Modeling
+- Machine learning for relationship pattern recognition
+- Natural language processing for historical document analysis
+- Computer vision for family resemblance quantification
+- Geographic clustering analysis for migration patterns
+
+** Integration Capabilities
+- APIs for major genealogy platforms
+- Integration with DNA analysis services
+- Historical records database connections
+- Social network analysis tools
+
+* Development
+
+** Setup
+#+BEGIN_SRC bash
+git clone https://github.com/aygp-dr/genealogical-inference-engine.git
+cd genealogical-inference-engine
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+#+END_SRC
+
+** Testing
+#+BEGIN_SRC bash
+make test       # Run inference algorithm tests
+make validate   # Validate against known family structures  
+make benchmark  # Performance testing on large family trees
+#+END_SRC
+
+* Meta Commentary
+
+This project represents the natural evolution of turning personal discoveries into systematic technical frameworks. What started as "who are these people in this photo?" becomes:
+
+1. Photographic forensic analysis
+2. Temporal correlation methodologies  
+3. Privacy-preserving image processing
+4. Genealogical inference engines
+5. [Inevitable next framework TBD]
+
+The author is constitutionally incapable of encountering an interesting problem without building comprehensive tooling to solve it systematically and reproducibly.
+
+* License
+
+MIT License - Because even joke repositories that might become real deserve proper licensing.
+
+---
+
+*Created during a conversation about the impossibility of not turning everything into a systematic framework. Proved the point by immediately creating another systematic framework.*
