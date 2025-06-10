@@ -1,0 +1,34 @@
+# Guile compiled files
+*.go
+
+# Backup files
+*~
+\#*\#
+.#*
+
+# Output directories
+examples/output/
+results/
+
+# Test output
+*.log
+*.tmp
+
+# Editor files
+.dir-locals.el
+TAGS
+
+# Build artifacts
+build/
+dist/
+
+# Documentation
+doc/generated/
+
+# Virtual environments (if using Python tools)
+venv/
+.venv/
+
+# OS files
+.DS_Store
+Thumbs.db
